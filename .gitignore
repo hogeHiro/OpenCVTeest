@@ -31,4 +31,4 @@ proguard/
 # Android Studio captures folder
 captures/
 
-OpenCVTest\app\src\main\jniLibs
+OpenCVTest/app/src/main/jniLibs/*
