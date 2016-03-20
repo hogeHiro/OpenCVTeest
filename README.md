@@ -1,0 +1,3 @@
+# OpenCVTeest
+OpenCVに慣れるためのプロジェクト
+
