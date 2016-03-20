@@ -1,5 +1,9 @@
 ﻿# OpenCVTeest
-OpenCVに慣れるためのプロジェクト
+OpenCVに慣れるためのandroidプロジェクト
+
+# 開発環境
+* Android Studio 1.5.1
+* OpenCV for Android 3.1
 
 # コンパイル方法
 
