@@ -15,5 +15,59 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Hello World!"
+        android:id="@+id/textView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="反転"
+        android:id="@+id/runNegButton"
+        android:layout_marginBottom="100dp"
+        android:onClick="runNegButtonPushed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_marginTop="36dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="false"
+        android:alpha="0.8"
+        android:adjustViewBounds="false"
+        android:layout_alignParentEnd="false"
+        android:layout_above="@+id/runNegButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="二値化"
+        android:id="@+id/runBinarizateButton"
+        android:layout_alignBottom="@+id/runNegButton"
+        android:layout_toRightOf="@+id/runNegButton"
+        android:layout_toEndOf="@+id/runNegButton"
+        android:onClick="runBinarizateButtonPushed" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="輪郭抽出"
+        android:id="@+id/runDetectContourButton"
+        android:layout_alignBottom="@+id/runBinarizateButton"
+        android:layout_toRightOf="@+id/runBinarizateButton"
+        android:layout_toEndOf="@+id/runBinarizateButton"
+        android:onClick="runDetectContourButtonPushed" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="直線抽出"
+        android:id="@+id/runDetectLinebutton"
+        android:layout_alignTop="@+id/runDetectContourButton"
+        android:layout_toRightOf="@+id/runDetectContourButton"
+        android:layout_toEndOf="@+id/runDetectContourButton"
+        android:onClick="runDetectLineButtonPushed" />
 </RelativeLayout>

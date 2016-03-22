@@ -1,5 +1,7 @@
 package com.example.ban.opencvtest;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,10 +11,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.android.Utils;
+import org.opencv.core.Core;
+import org.opencv.core.Mat;
+import org.opencv.core.Scalar;
+import org.opencv.imgproc.Imgproc;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +40,18 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        Button runNegButton = (Button) findViewById(R.id.runNegButton);
+        Button runBinButton = (Button) findViewById(R.id.runBinarizateButton);
+        Button runConButton = (Button) findViewById(R.id.runDetectContourButton);
+        Button runLineButton = (Button) findViewById(R.id.runDetectLinebutton);
+        runNegButton.setEnabled(false);
+        runBinButton.setEnabled(false);
+        runConButton.setEnabled(false);
+        runLineButton.setEnabled(false);
+
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        Bitmap image = BitmapFactory.decodeResource(getResources(), R.drawable.result_1);
+        imageView.setImageBitmap(image);
     }
 
     @Override
@@ -53,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS:
                     Log.d("OK", "OK");
+                    Button runNegButton = (Button) findViewById(R.id.runNegButton);
+                    Button runBinButton = (Button) findViewById(R.id.runBinarizateButton);
+                    Button runConButton = (Button) findViewById(R.id.runDetectContourButton);
+                    Button runLineButton = (Button) findViewById(R.id.runDetectLinebutton);
+                    runNegButton.setEnabled(true);
+                    runBinButton.setEnabled(true);
+                    runConButton.setEnabled(true);
+                    runLineButton.setEnabled(true);
                     break;
                 default:
                     super.onManagerConnected(status);
@@ -81,5 +110,49 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public void runNegButtonPushed(View view){
+
+        Log.d("debug", "button pushed");
+
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.result_1);
+        Mat source = new Mat();
+        Mat output = new Mat();
+        Utils.bitmapToMat(bitmap, source);
+
+        Core.absdiff(source, new Scalar(255, 255, 255), output);
+        Bitmap dst = Bitmap.createBitmap(output.width(), output.height(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(output, dst);
+
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setImageBitmap(dst);
+
+    }
+
+    public void runBinarizateButtonPushed(View view){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.result_1);
+        Mat source = new Mat();
+        Mat output = new Mat();
+        Utils.bitmapToMat(bitmap, source);
+
+        Imgproc.cvtColor(source, source, Imgproc.COLOR_RGB2GRAY);
+        Imgproc.threshold(source, output, 70, 255, Imgproc.THRESH_BINARY);
+        Imgproc.cvtColor(output, output, Imgproc.COLOR_GRAY2BGRA, 4);
+
+        Bitmap dst = Bitmap.createBitmap(output.width(), output.height(), Bitmap.Config.ARGB_8888);
+        Utils.matToBitmap(output, dst);
+
+        ImageView imageView = (ImageView) findViewById(R.id.imageView);
+        imageView.setImageBitmap(dst);
+    }
+
+    public void runDetectContourButtonPushed(View view){
+
+    }
+
+    public void runDetectLineButtonPushed(View view){
+
     }
 }
